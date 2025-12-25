@@ -23,6 +23,13 @@
 # -tune fastdecode ... no noticeable speed-up
 # -x264-params "bframes=0:ref=1" ... no noticeable speed-up
 
+# Things to make the file size smaller:
+# using fps=1 reduced the file size for fury road to 133Mib and decreased time to 271s.
+# using fps=0.5 reduced the file size for fury road to 84MiB and decreased time to 264s.  The down-side is that the video got a lot less-watchable vs. 1 fps.
+
+# I think 1 fps is probably the sweet spot, let's leave it there.
+# Just to confirm, I tested this with The Void and got 62MiB output size at 171 seconds, so that also checks out.
+
 set -e
 
 if [ -z "$1" ] || [ -z "$2" ]; then
@@ -71,7 +78,7 @@ NUM_CORES=$(nproc)
 # -b:a 32k: 32kbps audio bitrate
 START_TIME=$(date +%s.%N)
 ffmpeg -skip_frame nokey -i "$VIDEO_FILE" \
-    -vf "scale=${RESOLUTION}" \
+    -vf "fps=1,scale=${RESOLUTION}" \
     -c:v libx264 \
     -ac 1 \
     -c:a aac \

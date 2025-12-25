@@ -8,6 +8,13 @@
 # Reduction:       99.64%
 # Elapsed time:    168.98s
 
+# ./slideshow.sh /nas/media/Movies/Mad\ Max\ Fury\ Road\ \(2015\)/Mad\ Max\ Fury\ Road\ \(2015\).mkv 428x240
+# Processor cores: 23
+# Input size:      28GiB
+# Output size:     156MiB
+# Reduction:       99.44%
+# Elapsed time:    310.20s
+
 set -e
 
 if [ -z "$1" ] || [ -z "$2" ]; then
@@ -30,14 +37,16 @@ if ! [[ "$RESOLUTION" =~ ^[0-9]+x[0-9]+$ ]]; then
     exit 1
 fi
 
-# Create temporary directory
-TEMP_DIR=$(mktemp -d)
-trap "rm -rf $TEMP_DIR" EXIT
-
 # Get the base filename without path
 BASENAME=$(basename "$VIDEO_FILE")
 FILENAME="${BASENAME%.*}"
-OUTPUT_FILE="$TEMP_DIR/${FILENAME}_keyframes.mp4"
+OUTPUT_FILE="/nas/dev/${FILENAME}.mp4"
+
+# Check if output file already exists
+if [ -f "$OUTPUT_FILE" ]; then
+    echo "Error: Output file '$OUTPUT_FILE' already exists"
+    exit 1
+fi
 
 # Get input file size
 INPUT_SIZE=$(stat -c%s "$VIDEO_FILE")
@@ -82,4 +91,4 @@ echo "Output size:     $OUTPUT_SIZE_HUMAN"
 echo "Reduction:       ${REDUCTION}%"
 echo "Elapsed time:    ${ELAPSED}s"
 echo ""
-echo "$TEMP_DIR"
+echo "$OUTPUT_FILE"

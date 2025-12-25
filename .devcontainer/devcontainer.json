@@ -22,6 +22,7 @@
 
 	// Mount videos from my NAS
 	"mounts": [
-		"source=/nas/media,target=/nas/media,type=bind,consistency=cached,readonly"
+		"source=/nas/media,target=/nas/media,type=bind,consistency=cached,readonly",
+		"source=/nas/dev,target=/nas/dev,type=bind,consistency=cached"
 	]
 }

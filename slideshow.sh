@@ -17,6 +17,7 @@
 
 # Things I tried that did not result in any speed-up:
 # -threads "$NUM_CORES"
+# -b:a 8k - this actually slowed this down substantially, Fury Road took 353 seconds instead of 310s.  It did shrink the output size to 140MiB.
 
 set -e
 

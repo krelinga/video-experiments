@@ -19,6 +19,9 @@
 # -threads "$NUM_CORES"
 # -b:a 8k - this actually slowed this down substantially, Fury Road took 353 seconds instead of 310s.  It did shrink the output size to 140MiB.
 # - copying the input file to local ssd (/tmp) first - no noticeable speed-up
+# -preset ultrafast ... no noticeable speed-up
+# -tune fastdecode ... no noticeable speed-up
+# -x264-params "bframes=0:ref=1" ... no noticeable speed-up
 
 set -e
 

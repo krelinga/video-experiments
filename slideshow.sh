@@ -15,6 +15,9 @@
 # Reduction:       99.44%
 # Elapsed time:    310.20s
 
+# Things I tried that did not result in any speed-up:
+# -threads "$NUM_CORES"
+
 set -e
 
 if [ -z "$1" ] || [ -z "$2" ]; then
